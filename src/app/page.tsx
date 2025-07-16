@@ -17,7 +17,6 @@ export default function Login() {
   const handleAgeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setAge(e.target.value);
   };
-
   const ages = Array.from({ length: 48 }, (_, i) => i + 13);
 
   return (
