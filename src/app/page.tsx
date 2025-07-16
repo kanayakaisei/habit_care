@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Login() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -76,13 +77,11 @@ export default function Login() {
               <button className="border-[#479DB3] border-[2px] rounded-[5px] p-[4px] w-[80px] shadow-[1px_1px_3px_0_rgba(0,0,0,0.25)] mb-[23px] text-[#A0A0A0]">学生</button>
               <button className="border-[#479DB3] border-[2px] rounded-[5px] p-[4px] w-[80px] shadow-[1px_1px_3px_0_rgba(0,0,0,0.25)] mb-[23px] text-[#A0A0A0]">社会人</button>
             </div>
-
-            <button 
-              
-              className="text-[#fff] bg-[#F1C168] w-[170px] h-[44] align-center rounded-[8px] mt-[20px]">
+            <Link href="/top"
+              className="text-white bg-[#F1C168] w-[170px] h-[44px] flex items-center justify-center rounded-[8px] mt-[20px]">
               スタート
-            </button>
-          </form>
+            </Link>
+            </form>
 
           {/* 装飾 */}
           <div className="bg-gradient-to-tr from-[#44B7D9] to-[#C0E06B] w-40 h-40 rounded-full absolute bottom-[-30] left-[-30]"></div>
