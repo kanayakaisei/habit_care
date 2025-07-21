@@ -60,7 +60,6 @@ export default function Page() {
     );
 };
 
-
     return (
         <div className="relative overflow-hidden h-svh">
         <Link href="/top">
