@@ -2,9 +2,11 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import Food from "@/components/Food";
-import SlideCheck from "@/components/SlideCheck";
+import FoodBtn from "@/components/FoodBtn";
+import SportsBtn from "@/components/SportsBtn";
 import LogBtn from "@/components/LogBtn";
+import SlideCheck from "@/components/SlideCheck";
+import TimerLog from "@/components/TimerLog";
 
 type Screen = "select" | "next";
 type Genre = "meal" | "sleep" | "exercise";
@@ -30,6 +32,7 @@ const ConditionButton: React.FC<ConditionButtonProps> = ({
     );
 };
 
+    // ーーーーー 記録画面 ーーーーーー
     const RecordPage = () => {
     const [screen, setScreen] = useState<Screen>("select");
     const [genre, setGenre] = useState<Genre>("meal"); // 初期は食事
@@ -41,13 +44,18 @@ const ConditionButton: React.FC<ConditionButtonProps> = ({
             <div className="px-[30px]">
                 <p>1,栄養バランスを教えてください</p>
                 <div className="flex flex-col items-center">
-                    <Food title="朝食" />
-                    <Food title="昼食" />
-                    <Food title="夕食" />
+                    <FoodBtn title="朝食" />
+                    <FoodBtn title="昼食" />
+                    <FoodBtn title="夕食" />
                 </div>
                 <div>
                     <p>2,満足な食事を取れたと感じますか？</p>
                     <SlideCheck />
+                    <div className="flex justify-between text-[12px] w-[360px] pb-[20px] m-auto">
+                        <p>　　満足　　</p>
+                        <p>ちょうど良い</p>
+                        <p>少し足りない</p>
+                    </div>
                 </div>
                 <LogBtn />
             </div>
@@ -55,24 +63,69 @@ const ConditionButton: React.FC<ConditionButtonProps> = ({
         case "sleep":
             return (
                 <div className="px-[30px]">
-                    <p>1,睡眠時間はどれくらいですか？</p>
-                    {/* 睡眠関連のUIをここに追加 */}
-                    <SlideCheck />
+                    <section>
+                        <p className="mb-[24px]">1,本日の睡眠時間を教えてください</p>
+                        <div className="flex justify-center items-center gap-[25px]">
+                            <div>
+                                <p>就寝時間</p>
+                                <input
+                                    className="custom-time-input border-[2px] border-[#48A5BC] rounded-[5px] px-[20px] w-[100px] h-[40px] text-[20px]" 
+                                    type="time"
+                                />
+                            </div>
+                            <p className="text-[20px] pt-[25px]">〜</p>
+                            <div>
+                                <p>起床時間</p>
+                                <input
+                                    className="custom-time-input border-[2px] border-[#48A5BC] rounded-[5px] px-[20px] w-[100px] h-[40px] text-[20px]" 
+                                    type="time"
+                                />
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <div className="mt-83">
+                            <p>2,今日の目覚めはどうでしたか？</p>
+                            <SlideCheck />
+                            <div className="flex justify-between text-[12px] w-[330px] pb-[20px] m-auto">
+                                <p>スッキリ！</p>
+                                <p>ふつう</p>
+                                <p>だるかった</p>
+                            </div>
+                        </div>
+                    </section>
                     <LogBtn />
                 </div>
             );
         case "exercise":
             return (
-                <div className="px-[30px]">
-                    <p>1,運動はどれくらい行いましたか？</p>
-                    {/* 運動関連のUIをここに追加 */}
-                    <SlideCheck />
-                    <LogBtn />
-                </div>
+                <div className="px-[30px] flex flex-col gap-[30px]">
+                    <p>1,本日運動をしましたか？</p>
+                    <div className="flex flex-col items-center"> 
+                        <SportsBtn good="した" normal="休養" bad="していない"/>
+                    </div>
+                    <p>2,運動時間を教えてください</p>
+                    <div className="flex flex-col items-center"> 
+                        <SportsBtn good="1時間以上" normal="1時間未満" bad="30分未満"/>
+                        <TimerLog />
+                    </div>
+                    <div>
+                        <p>3,運動の強度を教えてください</p>
+                        <SlideCheck />
+                        <div className="flex justify-between text-[12px] w-[320px] pb-[20px] m-auto">
+                            <p>ハード</p>
+                            <p>ふつう</p>
+                            <p>かるめ</p>
+                        </div>
+
+                    </div>
+                <LogBtn />
+            </div>
             );
         }
     };
 
+    // ーーーーー 初めの画面 ーーーーーー
     return (
         <>
         {screen === "select" ? (
