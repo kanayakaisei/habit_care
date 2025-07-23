@@ -6,16 +6,16 @@ import Link from "next/link";
 
 export default function top() {
     return (
-        <div className="h-svh flex flex-col justify-between">
+        <div className="h-svh">
             <Header />
             <main>
-                    <section className="flex items-center justify-center bg-[#48A5BC] h-[318px]">
-                        <div className="mr-[30px]">
-                            <p className="text-[#fff]">今の生活を流づけると...</p>
-                            <h2></h2>
-                        </div>
-                        <Image src="character.svg" alt="キャラクター" width={122} height={218} />
-                    </section>
+                <section className="flex items-center justify-center bg-[#48A5BC] h-[318px] ">
+                    <div className="mr-[30px]">
+                        <p className="text-[#fff]">今の生活を流づけると...</p>
+                        <h2></h2>
+                    </div>
+                    <Image src="character.svg" alt="キャラクター" width={122} height={218} />
+                </section>
                 <section className="flex flex-col items-center">
                     <section className="py-[20px]">
                         <div className="flex justify-center gap-[60px] text-[#fff] font-bold pb-[19px] border-b-[#AFB2B2] border-b-[2px]">

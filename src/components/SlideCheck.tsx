@@ -1,4 +1,4 @@
-    import React, { useState } from "react";
+    import React, { useState, useEffect } from "react";
 
     // interface SlideProps {
     //     good:string,
@@ -6,9 +6,20 @@
     //     bad:string
     // }
 
-    const EmoticonSelector = () => {
-    const [selected, setSelected] = useState<number | null>(null);
-    const faces = ["😊", "🙂", "😞"];
+    type Props = {
+        onValueChange: (value: number) => void;
+    };
+    
+    const EmoticonSelector: React.FC<Props> = ({ onValueChange }) => {
+        const [selected, setSelected] = useState<number | null>(null);
+        const faces = ["😊", "🙂", "😞"];
+    
+        useEffect(() => {
+            if (selected !== null) {
+                const score = 30 - selected;
+                onValueChange(score);
+            }
+        }, [selected]);
 
     return (
         <div className="flex justify-center items-center space-x-30 relative py-[20px]">
