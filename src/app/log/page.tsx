@@ -109,15 +109,14 @@ const ConditionButton: React.FC<ConditionButtonProps> = ({
                         <SportsBtn good="1時間以上" normal="1時間未満" bad="30分未満"/>
                         <TimerLog />
                     </div>
-                    <div>
+                    <div className="mt-7">
                         <p>3,運動の強度を教えてください</p>
                         <SlideCheck />
-                        <div className="flex justify-between text-[12px] w-[320px] pb-[20px] m-auto">
+                        <div className="flex justify-between text-[12px] w-[320px] m-auto">
                             <p>ハード</p>
                             <p>ふつう</p>
                             <p>かるめ</p>
                         </div>
-
                     </div>
                 <LogBtn />
             </div>
