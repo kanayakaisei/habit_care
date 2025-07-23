@@ -1,30 +1,59 @@
+"use client";
 import LineChart from "@/components/LineChart";
 import Footer from "@/components/Footer";
+import { useEffect, useState } from "react";
 
-interface BtnProps {
-    genre:string
-}
+type Genre = "運動" | "食事" | "睡眠" | "平均";
 
-const Btn = ({genre}:BtnProps) =>{
-    return(
-        <>
-            <button className="text-[#48A5BC] text-[18px] w-[66px] h-[38px] border-[#48A5BC] border-[2px] font-bold rounded-[3px] shadow-[0_1px_5px_0_rgba(0,0,0,0.25)]">
-                {genre}
-            </button>
-        </>
-    )
-}
+const getPast7Days = (): string[] => {
+    const result: string[] = [];
+    for (let i = 6; i >= 0; i--) {
+        const date = new Date();
+        date.setDate(date.getDate() - i);
+        result.push(date.toLocaleDateString("ja-JP"));
+    }
+    return result;
+};
 
-export default function () {
+export default function ChartContainer() {
+    const [selectedGenre, setSelectedGenre] = useState<Genre>("食事");
+
+    const [sampleData, setSampleData] = useState({
+        運動: [0, 0, 0, 0, 0, 0, 0],
+        食事: [0, 0, 0, 0, 0, 0, 0],
+        睡眠: [0, 0, 0, 0, 0, 0, 0],
+        平均: [48, 30, 50, 64, 39, 51, 66],
+    });
+
+    useEffect(() => {
+        const past7Days = getPast7Days();
+        const mealData = past7Days.map((date) => {
+            const item = localStorage.getItem(`meal-${date}`);
+            return item ? Number(JSON.parse(item)) : 0;
+        });
+
+        setSampleData((prev) => ({
+            ...prev,
+            食事: mealData,
+        }));
+    }, []);
+
     return (
         <>
-            <div className="flex justify-center gap-8 py-[20px]">
-                <Btn genre="運動" />
-                <Btn genre="食事" />
-                <Btn genre="睡眠" />
-                <Btn genre="平均" />
+            <div>
+                <div className="flex justify-center gap-8 py-[20px]">
+                    {(["運動", "食事", "睡眠", "平均"] as Genre[]).map((g) => (
+                        <button
+                            key={g}
+                            className="px-4 py-2 rounded bg-[#48A5BC] font-bold text-white hover:bg-[#8bcada]"
+                            onClick={() => setSelectedGenre(g)}
+                        >
+                            {g}
+                        </button>
+                    ))}
+                </div>
+                <LineChart foodData={sampleData[selectedGenre]} />
             </div>
-            <LineChart  />
             <div className="flex justify-between px-[30px]">
                 <button className="bg-[#F1C168] text-[#fff] font-bold rounded-[5px] px-[10px] py-[8px] shadow-[1px_1px_3px_0_rgba(0,0,0,0.25)]">
                     月別で表示
@@ -55,6 +84,7 @@ export default function () {
                 </div>
             </section>
             <Footer />
+
         </>
     );
 }

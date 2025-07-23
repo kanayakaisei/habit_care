@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import FoodBtn from "@/components/FoodBtn";
@@ -32,10 +33,24 @@ const ConditionButton: React.FC<ConditionButtonProps> = ({
     );
 };
 
+
+
     // ーーーーー 記録画面 ーーーーーー
     const RecordPage = () => {
     const [screen, setScreen] = useState<Screen>("select");
     const [genre, setGenre] = useState<Genre>("meal"); // 初期は食事
+
+    const [breakfastValue, setBreakfastValue] = useState<number>(0);
+    const [lunchValue, setLunchValue] = useState<number>(0);
+    const [dinnerValue, setDinnerValue] = useState<number>(0);
+    const [emoticonValue, setEmoticonValue] = useState<number>(0);
+
+    useEffect(() => {
+        const today = new Date().toLocaleDateString("ja-JP");
+        const average = Math.round((breakfastValue + lunchValue + dinnerValue) / 3);
+        const totalScore = average + emoticonValue;
+        localStorage.setItem(`meal-${today}`, JSON.stringify(totalScore));
+    }, [breakfastValue, lunchValue, dinnerValue,emoticonValue]);
 
     const renderRecordContent = () => {
         switch (genre) {
@@ -44,13 +59,13 @@ const ConditionButton: React.FC<ConditionButtonProps> = ({
             <div className="px-[30px]">
                 <p>1,栄養バランスを教えてください</p>
                 <div className="flex flex-col items-center">
-                    <FoodBtn title="朝食" />
-                    <FoodBtn title="昼食" />
-                    <FoodBtn title="夕食" />
+                    <FoodBtn title="朝食" onValueChange={setBreakfastValue} />
+                    <FoodBtn title="昼食" onValueChange={setLunchValue} />
+                    <FoodBtn title="夕食" onValueChange={setDinnerValue} />                
                 </div>
                 <div>
                     <p>2,満足な食事を取れたと感じますか？</p>
-                    <SlideCheck />
+                    <SlideCheck onValueChange={setEmoticonValue} />
                     <div className="flex justify-between text-[12px] w-[360px] pb-[20px] m-auto">
                         <p>　　満足　　</p>
                         <p>ちょうど良い</p>
@@ -86,7 +101,7 @@ const ConditionButton: React.FC<ConditionButtonProps> = ({
                     <section>
                         <div className="mt-83">
                             <p>2,今日の目覚めはどうでしたか？</p>
-                            <SlideCheck />
+                            {/* <SlideCheck /> */}
                             <div className="flex justify-between text-[12px] w-[330px] pb-[20px] m-auto">
                                 <p>スッキリ！</p>
                                 <p>ふつう</p>
@@ -111,7 +126,7 @@ const ConditionButton: React.FC<ConditionButtonProps> = ({
                     </div>
                     <div className="mt-7">
                         <p>3,運動の強度を教えてください</p>
-                        <SlideCheck />
+                        {/* <SlideCheck /> */}
                         <div className="flex justify-between text-[12px] w-[320px] m-auto">
                             <p>ハード</p>
                             <p>ふつう</p>
