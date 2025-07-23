@@ -34,7 +34,6 @@
                         <div className="absolute top-1/2 left-full w-30 h-0.5 bg-gray-400"></div>
                     )}
                 </div>
-            
         ))}
         </div>
     );
