@@ -9,12 +9,12 @@ interface FoodProps {
 
     const Food = ({ title, onValueChange  }: FoodProps) => {
         const [selectedLabel, setSelectedLabel] = useState<string>("");
-        const [selectedValue, setSelectedValue] = useState<number>(0);
+        // const [selectedValue, setSelectedValue] = useState<number>(0);
     
         const labelToValue: Record<string, number> = {
             "いい感じ": 60,
             "普通": 40,
-            "偏りあり": 20,
+            "未摂取": 0,
         };
 
         const handleClick = (label: string) => {

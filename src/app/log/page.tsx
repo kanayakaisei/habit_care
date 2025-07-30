@@ -101,7 +101,7 @@ const ConditionButton: React.FC<ConditionButtonProps> = ({
                     <section>
                         <div className="mt-83">
                             <p>2,今日の目覚めはどうでしたか？</p>
-                            {/* <SlideCheck /> */}
+                            <SlideCheck onValueChange={setEmoticonValue} />
                             <div className="flex justify-between text-[12px] w-[330px] pb-[20px] m-auto">
                                 <p>スッキリ！</p>
                                 <p>ふつう</p>
@@ -126,7 +126,7 @@ const ConditionButton: React.FC<ConditionButtonProps> = ({
                     </div>
                     <div className="mt-7">
                         <p>3,運動の強度を教えてください</p>
-                        {/* <SlideCheck /> */}
+                        <SlideCheck onValueChange={setEmoticonValue} />
                         <div className="flex justify-between text-[12px] w-[320px] m-auto">
                             <p>ハード</p>
                             <p>ふつう</p>
