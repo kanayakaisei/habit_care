@@ -43,7 +43,7 @@ export default function Login() {
             <input
               type="text"
               name="name"
-              placeholder="ユーザーネーム"
+              placeholder="っっk"
               className="border-[#479DB3] border-[2px] rounded-[5px] p-[4px] w-[240px] shadow-[1px_1px_3px_0_rgba(0,0,0,0.25)] mb-[23px]"
             />
             <input
@@ -77,9 +77,9 @@ export default function Login() {
               className="text-white bg-[#F1C168] w-[170px] h-[44px] flex items-center justify-center rounded-[8px] mt-[20px]">
               スタート
             </Link>
-            </form>
+          </form>
 
-            <Decoration />
+          <Decoration />
         </>
       )}
     </div>
