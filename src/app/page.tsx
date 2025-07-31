@@ -43,7 +43,7 @@ export default function Login() {
             <input
               type="text"
               name="name"
-              placeholder="ユーザーネーム"
+              placeholder="ネーム"
               className="border-[#479DB3] border-[2px] rounded-[5px] p-[4px] w-[240px] shadow-[1px_1px_3px_0_rgba(0,0,0,0.25)] mb-[23px]"
             />
             <input
