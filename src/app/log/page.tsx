@@ -81,7 +81,6 @@ const RecordPage = () => {
                         <section>
                             <SleepBtn />
                         </section>
-
                         <section>
                             <div>
                                 <p>4,今日の目覚めはどうでしたか？</p>
