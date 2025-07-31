@@ -13,38 +13,38 @@ const formatTime = (seconds: number) => {
 };
 
 const TimerLog = () => {
-const [seconds, setSeconds] = useState(0);
-const [isRunning, setIsRunning] = useState(false);
-const intervalRef = useRef<NodeJS.Timeout | null>(null);
+    const [seconds, setSeconds] = useState(0);
+    const [isRunning, setIsRunning] = useState(false);
+    const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
-useEffect(() => {
+    useEffect(() => {
         if (isRunning) {
-        intervalRef.current = setInterval(() => {
-            setSeconds((prev) => prev + 1);
-        }, 1000);
+            intervalRef.current = setInterval(() => {
+                setSeconds((prev) => prev + 1);
+            }, 1000);
         } else {
-        if (intervalRef.current) {
-            clearInterval(intervalRef.current);
-        }
+            if (intervalRef.current) {
+                clearInterval(intervalRef.current);
+            }
         }
         return () => {
-        if (intervalRef.current) {
-            clearInterval(intervalRef.current);
-        }
+            if (intervalRef.current) {
+                clearInterval(intervalRef.current);
+            }
         };
-}, [isRunning]);
+    }, [isRunning]);
 
-const handleStartStop = () => {
-    setIsRunning((prev) => !prev);
-};
+    const handleStartStop = () => {
+        setIsRunning((prev) => !prev);
+    };
 
-const handleReset = () => {
-    setIsRunning(false);
-    setSeconds(0);
-};
+    const handleReset = () => {
+        setIsRunning(false);
+        setSeconds(0);
+    };
 
-return (
-        <div className="flex items-center justify-center gap-4">
+    return (
+        <div className="flex items-center justify-center gap-4 ">
             <div className="w-[127px] h-[127px] rounded-full border-[3px] border-[#48A5BC] flex items-center justify-center text-[20px] font-bold text-[#48A5BC]">
                 {formatTime(seconds)}
             </div>
@@ -55,13 +55,13 @@ return (
                         onClick={handleStartStop}
                         className="w-[90px] h-[48px] bg-[#48A5BC] text-white font-bold rounded-lg"
                     >
-                    {isRunning ? "ストップ" : "スタート"}
+                        {isRunning ? "ストップ" : "スタート"}
                     </button>
                     <button
                         onClick={handleReset}
                         className="w-[90px] h-[48px] bg-[#48A5BC] text-white font-bold rounded-lg"
                     >
-                    リセット
+                        リセット
                     </button>
                 </div>
             </div>

@@ -8,7 +8,6 @@ import SleepBtn from "@/components/SleepBtn";
 import SportsBtn from "@/components/SportsBtn";
 import LogBtn from "@/components/LogBtn";
 import SlideCheck from "@/components/SlideCheck";
-import TimerLog from "@/components/TimerLog";
 
 type Screen = "select" | "next";
 type Genre = "meal" | "sleep" | "exercise";
@@ -100,16 +99,10 @@ const RecordPage = () => {
             case "exercise":
                 return (
                     <div className="px-[30px] flex flex-col gap-[30px]">
-                        <p>1,本日運動をしましたか？</p>
                         <div className="flex flex-col items-center">
-                            <SportsBtn good="した" normal="休養" bad="していない" />
+                            <SportsBtn />
                         </div>
-                        <p>2,運動時間を教えてください</p>
-                        <div className="flex flex-col items-center">
-                            <SportsBtn good="1時間以上" normal="1時間未満" bad="30分未満" />
-                            <TimerLog />
-                        </div>
-                        <div className="mt-7">
+                        <section>
                             <p>3,運動の強度を教えてください</p>
                             <SlideCheck onValueChange={setEmoticonValue} />
                             <div className="flex justify-between text-[12px] w-[320px] m-auto">
@@ -117,7 +110,7 @@ const RecordPage = () => {
                                 <p>ふつう</p>
                                 <p>かるめ</p>
                             </div>
-                        </div>
+                        </section>
                         <LogBtn />
                     </div>
                 );
