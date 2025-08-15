@@ -66,8 +66,8 @@ const RecordPage = () => {
                         <div>
                             <p>2,満足な食事を取れたと感じますか？</p>
                             <SlideCheck onValueChange={setEmoticonValue} />
-                            <div className="flex justify-between text-[12px] w-[360px] pb-[20px] m-auto">
-                                <p>　　満足　　</p>
+                            <div className="flex justify-between text-[12px] w-[340px] pb-[20px] m-auto">
+                                <p>　 満足　　</p>
                                 <p>ちょうど良い</p>
                                 <p>少し足りない</p>
                             </div>
@@ -145,17 +145,17 @@ const RecordPage = () => {
             ) : (
                 <>
                     <Link href="/top">
-                        <button className="ml-[30px] mt-[10px] p-[16px] rounded-[5px] bg-[#fff] shadow-[0_1px_5px_0_rgba(0,0,0,0.40)]">
+                        <button className="ml-[30px] m-[10px] p-[10px] rounded-[5px] bg-[#fff] shadow-[0_1px_5px_0_rgba(0,0,0,0.40)]">
                             <Image src="bak_arrow.svg" alt="戻るボタン" width={20} height={0} />
                         </button>
                     </Link>
                     {/* ジャンル選択UI（固定） */}
-                    <div className="flex flex-col items-center gap-[10px] translate-y-[-30px] pb-[8px] border-b-[1px] border-b-[#BEBEBE]">
-                        <h2 className="text-[23px] font-bold text-[#48A5BC]">ジャンルを選択</h2>
+                    <div className="flex flex-col items-center gap-[10px] translate-y-[-30px] text-[14px] pb-[8px] border-b-[1px] border-b-[#BEBEBE]">
+                        <h2 className="text-[18px] font-bold text-[#48A5BC]">ジャンルを選択</h2>
                         <div className="flex justify-center items-center gap-[50px]">
                             <div className="flex flex-col items-center">
                                 <button
-                                    className="p-[20px] rounded-[5px] shadow-[0_1px_5px_0_rgba(0,0,0,0.40)]"
+                                    className="p-[16px] rounded-[5px] shadow-[0_1px_5px_0_rgba(0,0,0,0.40)]"
                                     onClick={() => setGenre("meal")}
                                 >
                                     <Image
@@ -169,7 +169,7 @@ const RecordPage = () => {
                             </div>
                             <div className="flex flex-col items-center">
                                 <button
-                                    className="p-[20px] rounded-[5px] shadow-[0_1px_5px_0_rgba(0,0,0,0.40)]"
+                                    className="p-[16px] rounded-[5px] shadow-[0_1px_5px_0_rgba(0,0,0,0.40)]"
                                     onClick={() => setGenre("sleep")}
                                 >
                                     <Image
@@ -183,7 +183,7 @@ const RecordPage = () => {
                             </div>
                             <div className="flex flex-col items-center">
                                 <button
-                                    className="py-[18px] px-[23px] rounded-[5px] shadow-[0_1px_5px_0_rgba(0,0,0,0.40)]"
+                                    className="py-[13px] px-[20px] rounded-[5px] shadow-[0_1px_5px_0_rgba(0,0,0,0.40)]"
                                     onClick={() => setGenre("exercise")}
                                 >
                                     <Image
