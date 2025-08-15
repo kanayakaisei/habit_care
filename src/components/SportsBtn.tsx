@@ -21,7 +21,7 @@ const SportsBtn = () => {
     const isSelected = (target: string, label: string) => target === label;
 
     return (
-        <div className="flex flex-col gap-[36px]">
+        <div className="flex flex-col gap-[24px]">
             <p>1,本日運動をしましたか？</p>
             <div className="flex justify-center text-[14px] gap-[18px] text-[#48A5BC] font-bold">
                 {(["good", "normal", "bad"] as const).map((label) => (
@@ -39,7 +39,7 @@ const SportsBtn = () => {
             </div>
 
             <p>2,運動時間を教えてください</p>
-            <div className="flex justify-center text-[14px] gap-[18px] text-[#48A5BC] font-bold">
+            <div className="flex justify-center text-[14px] gap-[18px] text-[#48A5BC] font-bold mb-[8px]">
                 {(["good", "normal", "bad"] as const).map((label) => (
                     <button
                         key={label}

@@ -49,7 +49,7 @@ const TimerLog = () => {
                 {formatTime(seconds)}
             </div>
             <div className="flex flex-col items-center gap-4">
-                <p className="text-[12px]">タイマーで運動の時間を記録できます</p>
+                <p className="text-[11px] font-bold">タイマーで運動の時間を記録できます</p>
                 <div className="flex gap-4">
                     <button
                         onClick={handleStartStop}

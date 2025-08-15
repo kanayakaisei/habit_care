@@ -25,7 +25,7 @@ const Food = ({ title, onValueChange }: FoodProps) => {
     const isSelected = (label: string) => selectedLabel === label;
 
     return (
-        <section className="mt-[12px] mb-[25px]">
+        <section className=" mb-[25px]">
             <h3 className="font-bold">{title}</h3>
             <div className="flex gap-[18px] text-[14px] text-[#48A5BC] font-bold mt-[4px] mb-[10px]">
                 {Object.keys(labelToValue).map((label) => (
@@ -33,8 +33,8 @@ const Food = ({ title, onValueChange }: FoodProps) => {
                         key={label}
                         onClick={() => handleClick(label)}
                         className={`py-[9px] border-[2px] rounded-[5px] w-[93px] ${isSelected(label)
-                                ? "bg-[#48A5BC] text-white"
-                                : "border-[#48A5BC] text-[#48A5BC]"
+                            ? "bg-[#48A5BC] text-white"
+                            : "border-[#48A5BC] text-[#48A5BC]"
                             }`}
                     >
                         {label}

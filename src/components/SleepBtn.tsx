@@ -18,10 +18,10 @@ const SleepBtn = () => {
     const isSelected = (target: string, label: string) => target === label;
 
     return (
-        <div className="flex flex-col gap-[38px] mb-[46px]">
+        <div className="flex flex-col gap-[24px]">
             <div>
                 <p className="mb-[24px]">1,本日の睡眠時間を教えてください</p>
-                <div className="flex justify-center items-center gap-[25px]">
+                <div className="flex justify-center items-center gap-[25px] mb-[20px]">
                     <div>
                         <p>就寝時間</p>
                         <input
@@ -39,8 +39,9 @@ const SleepBtn = () => {
                     </div>
                 </div>
             </div>
+
             <p>2,寝るまでにどれくらいかかりましたか？</p>
-            <div className="flex justify-center text-[14px] gap-[20px] text-[#48A5BC] font-bold">
+            <div className="flex justify-center text-[14px] gap-[20px] text-[#48A5BC] font-bold mb-[20px]">
                 {(["good", "normal", "bad"] as const).map((label) => (
                     <button
                         key={label}
@@ -53,8 +54,10 @@ const SleepBtn = () => {
                         {label1[label]}
                     </button>
                 ))}
-            </div>            <p>3,夜中に目が覚めましたか？</p>
-            <div className="flex justify-center text-[14px] gap-[20px] text-[#48A5BC] font-bold">
+            </div>
+
+            <p>3,夜中に目が覚めましたか？</p>
+            <div className="flex justify-center text-[14px] gap-[20px] text-[#48A5BC] font-bold mb-[24px]">
                 {(["good", "normal", "bad"] as const).map((label) => (
                     <button
                         key={label}
