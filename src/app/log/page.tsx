@@ -34,7 +34,6 @@ const ConditionButton: React.FC<ConditionButtonProps> = ({
 };
 
 
-
 // ーーーーー 記録画面 ーーーーーー
 const RecordPage = () => {
     const [screen, setScreen] = useState<Screen>("select");
@@ -43,14 +42,21 @@ const RecordPage = () => {
     const [breakfastValue, setBreakfastValue] = useState<number>(0);
     const [lunchValue, setLunchValue] = useState<number>(0);
     const [dinnerValue, setDinnerValue] = useState<number>(0);
-    const [emoticonValue, setEmoticonValue] = useState<number>(0);
+
+    const [mealEmoticon, setFoodEmoticon] = useState<number>(0);
+    const [sleepEmoticon, setSleepEmoticon] = useState<number>(0);
+    const [exerciseEmoticon, setExerciseEmoticon] = useState<number>(0);
 
     useEffect(() => {
         const today = new Date().toLocaleDateString("ja-JP");
-        const average = Math.round((breakfastValue + lunchValue + dinnerValue) / 3);
-        const totalScore = average + emoticonValue;
-        localStorage.setItem(`meal-${today}`, JSON.stringify(totalScore));
-    }, [breakfastValue, lunchValue, dinnerValue, emoticonValue]);
+        // 食事
+        const mealAverage = Math.round((breakfastValue + lunchValue + dinnerValue) / 3);
+        localStorage.setItem(`meal-${today}`, JSON.stringify(mealAverage + mealEmoticon));
+        // 睡眠
+        localStorage.setItem(`sleep-${today}`, JSON.stringify(sleepEmoticon));
+        // 運動
+        localStorage.setItem(`exercise-${today}`, JSON.stringify(exerciseEmoticon));
+    }, [breakfastValue, lunchValue, dinnerValue, mealEmoticon, sleepEmoticon, exerciseEmoticon]);
 
     const renderRecordContent = () => {
         switch (genre) {
@@ -65,7 +71,7 @@ const RecordPage = () => {
                         </div>
                         <div>
                             <p>2,満足な食事を取れたと感じますか？</p>
-                            <SlideCheck onValueChange={setEmoticonValue} />
+                            <SlideCheck onValueChange={setFoodEmoticon} />
                             <div className="flex justify-between text-[12px] w-[340px] pb-[20px] m-auto">
                                 <p>　 満足　　</p>
                                 <p>ちょうど良い</p>
@@ -84,7 +90,7 @@ const RecordPage = () => {
                         <section>
                             <div>
                                 <p>4,今日の目覚めはどうでしたか？</p>
-                                <SlideCheck onValueChange={setEmoticonValue} />
+                                <SlideCheck onValueChange={setSleepEmoticon} />
                                 <div className="flex justify-between text-[12px] w-[330px] pb-[20px] m-auto">
                                     <p>スッキリ！</p>
                                     <p>ふつう</p>
@@ -103,7 +109,7 @@ const RecordPage = () => {
                         </div>
                         <section>
                             <p>3,運動の強度を教えてください</p>
-                            <SlideCheck onValueChange={setEmoticonValue} />
+                            <SlideCheck onValueChange={setExerciseEmoticon} />
                             <div className="flex justify-between text-[12px] w-[320px] m-auto">
                                 <p>ハード</p>
                                 <p>ふつう</p>

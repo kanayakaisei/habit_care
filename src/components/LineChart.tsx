@@ -15,10 +15,12 @@ import {
 Chart.register(LineController, LineElement, PointElement, LinearScale, Title, CategoryScale, Tooltip, Legend);
 
 interface LineChartProps {
-    foodData: number[];
+    foodDate: number[],
+    sleepDate: number[],
+    sportsDate: number[]
 }
 
-export default function LineChart({ foodData }: LineChartProps) {
+export default function LineChart({ foodDate, sleepDate, sportsDate }: LineChartProps) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
     useEffect(() => {
@@ -31,9 +33,9 @@ export default function LineChart({ foodData }: LineChartProps) {
         const data = {
             labels: labels,
             datasets: [
-                {       
+                {
                     label: '食事',
-                    data: foodData,
+                    data: foodDate,
                     fill: false,
                     borderColor: 'rgb(255, 191, 63)',
                     borderWidth: 3,
@@ -41,7 +43,7 @@ export default function LineChart({ foodData }: LineChartProps) {
                 },
                 {
                     label: '運動',
-                    data: [70, 40, 50, 60, 20, 40, 50],
+                    data: sportsDate,
                     fill: false,
                     borderColor: 'rgb(255, 63, 127)',
                     borderWidth: 3,
@@ -49,7 +51,7 @@ export default function LineChart({ foodData }: LineChartProps) {
                 },
                 {
                     label: '睡眠',
-                    data: [10, 30, 20, 50, 40, 60, 80],
+                    data: sleepDate,
                     fill: false,
                     borderColor: 'rgb(63, 153, 255)',
                     borderWidth: 3,
@@ -102,16 +104,14 @@ export default function LineChart({ foodData }: LineChartProps) {
         };
 
         const chartInstance = new Chart(ctx, config);
-
         return () => {
             chartInstance.destroy();
         };
+    }, [foodDate, sleepDate, sportsDate]);
 
-    }, [foodData]); // ←ここが正しい位置！
-    
     return (
         <div>
-            <canvas 
+            <canvas
                 className="px-[20px] pb-[30px]"
                 ref={canvasRef} width={320} height={250} />
         </div>

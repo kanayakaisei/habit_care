@@ -5,7 +5,8 @@ import { useEffect, useState } from "react";
 
 type Genre = "運動" | "食事" | "睡眠" | "平均";
 
-const getPast7Days = (): string[] => {
+// ーーー日付の配列を作る関数ーーー
+const days = (): string[] => {
     const result: string[] = [];
     for (let i = 6; i >= 0; i--) {
         const date = new Date();
@@ -16,27 +17,39 @@ const getPast7Days = (): string[] => {
 };
 
 export default function ChartContainer() {
-    const [selectedGenre, setSelectedGenre] = useState<Genre>("食事");
-
+    const [labels, setLabels] = useState<string[]>([]);
     const [sampleData, setSampleData] = useState({
         運動: [0, 0, 0, 0, 0, 0, 0],
         食事: [0, 0, 0, 0, 0, 0, 0],
         睡眠: [0, 0, 0, 0, 0, 0, 0],
-        平均: [48, 30, 50, 64, 39, 51, 66],
     });
 
     useEffect(() => {
-        const past7Days = getPast7Days();
-        const mealData = past7Days.map((date) => {
+        const pastDays = days();
+        setLabels(pastDays);
+
+        const foodData = pastDays.map((date) => {
             const item = localStorage.getItem(`meal-${date}`);
             return item ? Number(JSON.parse(item)) : 0;
         });
 
-        setSampleData((prev) => ({
-            ...prev,
-            食事: mealData,
-        }));
+        const sportsData = pastDays.map((date) => {
+            const item = localStorage.getItem(`exercise-${date}`);
+            return item ? Number(JSON.parse(item)) : 0;
+        });
+
+        const sleepData = pastDays.map((date) => {
+            const item = localStorage.getItem(`sleep-${date}`);
+            return item ? Number(JSON.parse(item)) : 0;
+        });
+
+        setSampleData({
+            食事: foodData,
+            運動: sportsData,
+            睡眠: sleepData,
+        });
     }, []);
+
 
     return (
         <>
@@ -46,14 +59,15 @@ export default function ChartContainer() {
                         <button
                             key={g}
                             className="px-4 py-2 rounded bg-[#48A5BC] font-bold text-white hover:bg-[#8bcada]"
-                            onClick={() => setSelectedGenre(g)}
+                        // onClick={() => setSelectedGenre(g)}
                         >
                             {g}
                         </button>
                     ))}
                 </div>
-                <LineChart foodData={sampleData[selectedGenre]} />
+                <LineChart foodDate={sampleData["食事"]} sleepDate={sampleData["睡眠"]} sportsDate={sampleData["運動"]} />
             </div>
+
             <div className="flex justify-between px-[30px]">
                 <button className="bg-[#F1C168] text-[#fff] font-bold rounded-[5px] px-[10px] py-[8px] shadow-[1px_1px_3px_0_rgba(0,0,0,0.25)]">
                     月別で表示
