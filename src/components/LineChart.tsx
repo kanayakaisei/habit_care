@@ -17,7 +17,7 @@ Chart.register(LineController, LineElement, PointElement, LinearScale, Title, Ca
 interface LineChartProps {
     foodDate: number[],
     sleepDate: number[],
-    sportsDate: number[]
+    sportsDate: number[],
 }
 
 export default function LineChart({ foodDate, sleepDate, sportsDate }: LineChartProps) {

@@ -65,7 +65,7 @@ const SleepBtn = () => {
 
         const today = new Date().toLocaleDateString("ja-JP");
         localStorage.setItem(`sleep-${today}`, JSON.stringify(totalScore));
-    }, [bedTime, wakeTime, selected1, selected2, sleepEmoticon]); // ←常に固定
+    }, [bedTime, wakeTime, selected1, selected2, sleepEmoticon]);
 
     return (
         <div className="flex flex-col gap-[20px]">

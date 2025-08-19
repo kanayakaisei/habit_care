@@ -4,8 +4,8 @@ import { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import FoodBtn from "@/components/FoodBtn";
-import SleepBtn from "@/components/SleepBtn";
-import SportsBtn from "@/components/SportsBtn";
+import SleepLog from "@/components/SleepLog";
+import SportsLog from "@/components/SportsLog";
 import LogBtn from "@/components/LogBtn";
 import SlideCheck from "@/components/SlideCheck";
 
@@ -38,25 +38,17 @@ const ConditionButton: React.FC<ConditionButtonProps> = ({
 const RecordPage = () => {
     const [screen, setScreen] = useState<Screen>("select");
     const [genre, setGenre] = useState<Genre>("meal"); // 初期は食事
-
     const [breakfastValue, setBreakfastValue] = useState<number>(0);
     const [lunchValue, setLunchValue] = useState<number>(0);
     const [dinnerValue, setDinnerValue] = useState<number>(0);
 
     const [mealEmoticon, setFoodEmoticon] = useState<number>(0);
-    const [sleepEmoticon, setSleepEmoticon] = useState<number>(0);
-    const [exerciseEmoticon, setExerciseEmoticon] = useState<number>(0);
-
     useEffect(() => {
-        const today = new Date().toLocaleDateString("ja-JP");
+        const mealToday = new Date().toLocaleDateString("ja-JP");
         // 食事
         const mealAverage = Math.round((breakfastValue + lunchValue + dinnerValue) / 3);
-        localStorage.setItem(`meal-${today}`, JSON.stringify(mealAverage + mealEmoticon));
-        // 睡眠
-        localStorage.setItem(`sleep-${today}`, JSON.stringify(sleepEmoticon));
-        // 運動
-        localStorage.setItem(`exercise-${today}`, JSON.stringify(exerciseEmoticon));
-    }, [breakfastValue, lunchValue, dinnerValue, mealEmoticon, sleepEmoticon, exerciseEmoticon]);
+        localStorage.setItem(`meal-${mealToday}`, JSON.stringify(mealAverage + mealEmoticon));
+    }, [breakfastValue, lunchValue, dinnerValue, mealEmoticon,]);
 
     const renderRecordContent = () => {
         switch (genre) {
@@ -85,38 +77,16 @@ const RecordPage = () => {
                 return (
                     <div className="px-[30px]">
                         <section>
-                            <SleepBtn />
+                            <SleepLog />
                         </section>
-                        <section>
-                            <div>
-                                <p>4,今日の目覚めはどうでしたか？</p>
-                                <SlideCheck onValueChange={setSleepEmoticon} />
-                                <div className="flex justify-between text-[12px] w-[330px] pb-[20px] m-auto">
-                                    <p>スッキリ！</p>
-                                    <p>ふつう</p>
-                                    <p>だるかった</p>
-                                </div>
-                            </div>
-                        </section>
-                        <LogBtn />
                     </div>
                 );
             case "exercise":
                 return (
                     <div className="px-[30px] flex flex-col gap-[30px]">
                         <div className="flex flex-col items-center">
-                            <SportsBtn />
+                            <SportsLog />
                         </div>
-                        <section>
-                            <p>3,運動の強度を教えてください</p>
-                            <SlideCheck onValueChange={setExerciseEmoticon} />
-                            <div className="flex justify-between text-[12px] w-[320px] m-auto">
-                                <p>ハード</p>
-                                <p>ふつう</p>
-                                <p>かるめ</p>
-                            </div>
-                        </section>
-                        <LogBtn />
                     </div>
                 );
         }

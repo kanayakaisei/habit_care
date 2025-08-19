@@ -7,11 +7,11 @@ type Props = {
 const EmoticonSelector: React.FC<Props> = ({ onValueChange }) => {
     const [selected, setSelected] = useState<number | null>(null);
     const faces = ["😊", "🙂", "😞"];
+    const scores = [30, 20, 10];
 
     useEffect(() => {
         if (selected !== null) {
-            const score = 30 - selected;
-            onValueChange(score);
+            onValueChange(scores[selected]);
         }
     }, [selected]);
 

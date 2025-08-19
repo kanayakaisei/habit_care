@@ -17,7 +17,7 @@ const days = (): string[] => {
 };
 
 export default function ChartContainer() {
-    const [labels, setLabels] = useState<string[]>([]);
+    // const [labels, setLabels] = useState<string[]>([]);
     const [sampleData, setSampleData] = useState({
         運動: [0, 0, 0, 0, 0, 0, 0],
         食事: [0, 0, 0, 0, 0, 0, 0],
@@ -26,30 +26,27 @@ export default function ChartContainer() {
 
     useEffect(() => {
         const pastDays = days();
-        setLabels(pastDays);
+        // setLabels(pastDays);
 
         const foodData = pastDays.map((date) => {
             const item = localStorage.getItem(`meal-${date}`);
             return item ? Number(JSON.parse(item)) : 0;
         });
-
-        const sportsData = pastDays.map((date) => {
-            const item = localStorage.getItem(`exercise-${date}`);
-            return item ? Number(JSON.parse(item)) : 0;
-        });
-
         const sleepData = pastDays.map((date) => {
             const item = localStorage.getItem(`sleep-${date}`);
+            return item ? Number(JSON.parse(item)) : 0;
+        });
+        const sportsData = pastDays.map((date) => {
+            const item = localStorage.getItem(`sports-${date}`);
             return item ? Number(JSON.parse(item)) : 0;
         });
 
         setSampleData({
             食事: foodData,
-            運動: sportsData,
             睡眠: sleepData,
+            運動: sportsData,
         });
     }, []);
-
 
     return (
         <>
@@ -65,7 +62,7 @@ export default function ChartContainer() {
                         </button>
                     ))}
                 </div>
-                <LineChart foodDate={sampleData["食事"]} sleepDate={sampleData["睡眠"]} sportsDate={sampleData["運動"]} />
+                <LineChart foodDate={sampleData["食事"]} sportsDate={sampleData["運動"]} sleepDate={sampleData["睡眠"]} />
             </div>
 
             <div className="flex justify-between px-[30px]">
