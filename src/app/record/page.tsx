@@ -5,19 +5,19 @@ import { useEffect, useState } from "react";
 
 type Genre = "運動" | "食事" | "睡眠" | "平均";
 
-// ーーー日付の配列を作る関数ーーー
-const days = (): string[] => {
+// ーーー指定した基準日から7日間を作る関数ーーー
+const getDays = (baseDate: Date): string[] => {
     const result: string[] = [];
     for (let i = 6; i >= 0; i--) {
-        const date = new Date();
-        date.setDate(date.getDate() - i);
+        const date = new Date(baseDate);
+        date.setDate(baseDate.getDate() - i);
         result.push(date.toLocaleDateString("ja-JP"));
     }
     return result;
 };
 
 export default function ChartContainer() {
-    // const [labels, setLabels] = useState<string[]>([]);
+    const [offset, setOffset] = useState(0);
     const [sampleData, setSampleData] = useState({
         運動: [0, 0, 0, 0, 0, 0, 0],
         食事: [0, 0, 0, 0, 0, 0, 0],
@@ -25,8 +25,11 @@ export default function ChartContainer() {
     });
 
     useEffect(() => {
-        const pastDays = days();
-        // setLabels(pastDays);
+        // 基準日を offset に応じて変更
+        const baseDate = new Date();
+        baseDate.setDate(baseDate.getDate() + offset);
+
+        const pastDays = getDays(baseDate);
 
         const foodData = pastDays.map((date) => {
             const item = localStorage.getItem(`meal-${date}`);
@@ -46,34 +49,42 @@ export default function ChartContainer() {
             睡眠: sleepData,
             運動: sportsData,
         });
-    }, []);
-
+    }, [offset]);
     return (
-        <>
+        <div className="pb-[120px]">
             <div>
                 <div className="flex justify-center gap-8 py-[20px]">
                     {(["運動", "食事", "睡眠", "平均"] as Genre[]).map((g) => (
                         <button
                             key={g}
                             className="px-4 py-2 rounded bg-[#48A5BC] font-bold text-white hover:bg-[#8bcada]"
-                        // onClick={() => setSelectedGenre(g)}
                         >
                             {g}
                         </button>
                     ))}
                 </div>
-                <LineChart foodDate={sampleData["食事"]} sportsDate={sampleData["運動"]} sleepDate={sampleData["睡眠"]} />
+                <LineChart
+                    foodDate={sampleData["食事"]}
+                    sportsDate={sampleData["運動"]}
+                    sleepDate={sampleData["睡眠"]}
+                />
             </div>
 
             <div className="flex justify-between px-[30px]">
-                <button className="bg-[#F1C168] text-[#fff] font-bold rounded-[5px] px-[10px] py-[8px] shadow-[1px_1px_3px_0_rgba(0,0,0,0.25)]">
+                {/* <button className="bg-[#F1C168] text-[#fff] font-bold rounded-[5px] px-[10px] py-[8px] shadow-[1px_1px_3px_0_rgba(0,0,0,0.25)]">
                     月別で表示
-                </button>
-                <div className="flex gap-5">
-                    <button className="bg-[#48A5BC] text-[#fff] text-[18px] px-[10px] py-[7px] font-bold rounded-[5px] shadow-[0_1px_5px_0_rgba(0,0,0,0.25)]">
+                </button> */}
+                <div className="flex justify-between gap-5 w-100">
+                    <button
+                        className="bg-[#48A5BC] text-[#fff] text-[18px] px-[10px] py-[7px] font-bold rounded-[5px] shadow-[0_1px_5px_0_rgba(0,0,0,0.25)]"
+                        onClick={() => setOffset((prev) => prev - 7)}
+                    >
                         前の週へ
                     </button>
-                    <button className="bg-[#48A5BC] text-[#fff] text-[18px] px-[10px] py-[7px] font-bold rounded-[5px] shadow-[0_1px_5px_0_rgba(0,0,0,0.25)]">
+                    <button
+                        className="bg-[#48A5BC] text-[#fff] text-[18px] px-[10px] py-[7px] font-bold rounded-[5px] shadow-[0_1px_5px_0_rgba(0,0,0,0.25)]"
+                        onClick={() => setOffset((prev) => prev + 7)}
+                    >
                         次の週へ
                     </button>
                 </div>
@@ -96,6 +107,6 @@ export default function ChartContainer() {
             </section>
             <Footer />
 
-        </>
+        </div>
     );
 }

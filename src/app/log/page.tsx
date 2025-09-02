@@ -45,7 +45,6 @@ const RecordPage = () => {
     const [mealEmoticon, setFoodEmoticon] = useState<number>(0);
     useEffect(() => {
         const mealToday = new Date().toLocaleDateString("ja-JP");
-        // 食事
         const mealAverage = Math.round((breakfastValue + lunchValue + dinnerValue) / 3);
         localStorage.setItem(`meal-${mealToday}`, JSON.stringify(mealAverage + mealEmoticon));
     }, [breakfastValue, lunchValue, dinnerValue, mealEmoticon,]);
@@ -173,7 +172,6 @@ const RecordPage = () => {
                             </div>
                         </div>
                     </div>
-
                     {/* 記録の中身（ジャンルによって切替） */}
                     {renderRecordContent()}
                 </>
