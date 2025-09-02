@@ -27,7 +27,10 @@ export async function POST(request: Request) {
         });
 
         return NextResponse.json(user, { status: 201 });
-    } catch (error: any) {
-        return NextResponse.json({ error: error.message }, { status: 500 });
+    } catch (error) {
+        if (error instanceof Error) {
+            return NextResponse.json({ error: error.message }, { status: 500 });
+        }
+        return NextResponse.json({ error: "Unknown error" }, { status: 500 });
     }
 }
