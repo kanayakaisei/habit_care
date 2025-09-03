@@ -24,6 +24,30 @@ export default function ChartContainer() {
         睡眠: [0, 0, 0, 0, 0, 0, 0],
     });
 
+    type AnalysisResult = {
+        analysis: { 食事: string; 睡眠: string; 運動: string };
+        advice: { 食事: string; 睡眠: string; 運動: string };
+    };
+    const [analysis, setAnalysis] = useState<AnalysisResult | null>(null);
+
+    useEffect(() => {
+        const fetchAnalysis = async () => {
+            const res = await fetch("/api/analyze", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    food: sampleData["食事"],
+                    sleep: sampleData["睡眠"],
+                    sports: sampleData["運動"],
+                }),
+            });
+            const data = await res.json();
+            setAnalysis(data);
+        };
+
+        fetchAnalysis();
+    }, [sampleData]);
+
     useEffect(() => {
         // 基準日を offset に応じて変更
         const baseDate = new Date();
@@ -89,19 +113,51 @@ export default function ChartContainer() {
                     </button>
                 </div>
             </div>
-            <section className="px-[46px] pt-[12px]">
-                <h2 className="text-[#48A5BC] font-bold text-[24px] flex justify-center py-[15px] border-b-[#666] border-b-[2px]">
-                    記録内容
-                </h2>
-                <div className="text-left px-[10px] py-[25px] flex flex-col gap-8">
-                    <div>
-                        <h3 className="text-[#48A5BC] font-bold text-[18px]">分析結果</h3>
-                        <li>昨日と比べて全体的に向上しております</li>
-                        <li>運動、食事が良好ですばらしいです！</li>
+            <section className="px-[24px] pt-[12px]">
+                <div className="text-left text-[14px] px-[8px] py-[25px] flex flex-col gap-8">
+                    <div className="flex flex-col gap-2">
+                        <h3 className="text-[#48A5BC] font-bold text-[20px]">分析結果</h3>
+                        <div className="border border-[#48A5BC] mb-2"></div>
+                        {analysis ? (
+                            <div className="flex flex-col gap-4">
+                                <p>
+                                    <span className="font-bold text-[16px] border-b-[#48A5BC] border-b-2">食事</span><br />
+                                    {analysis.analysis.食事}
+                                </p>
+                                <p>
+                                    <span className="font-bold text-[16px] border-b-[#48A5BC] border-b-2">睡眠</span><br />
+                                    {analysis.analysis.睡眠}
+                                </p>
+                                <p>
+                                    <span className="font-bold text-[16px] border-b-[#48A5BC] border-b-2">運動</span><br />
+                                    {analysis.analysis.運動}
+                                </p>
+                            </div>
+                        ) : (
+                            <p>分析中...</p>
+                        )}
                     </div>
-                    <div>
-                        <h3 className="text-[#48A5BC] font-bold text-[18px]">アドバイス</h3>
-                        <li>就寝1時間前はスマホを見ない！</li>
+                    <div className="flex flex-col gap-2">
+                        <h3 className="text-[#48A5BC] font-bold text-[20px]">アドバイス</h3>
+                        <div className="border border-[#48A5BC] mb-2"></div>
+                        {analysis ? (
+                            <div className="flex flex-col gap-4">
+                                <p>
+                                    <span className="font-bold text-[16px] border-b-[#48A5BC] border-b-2">食事</span><br />
+                                    {analysis.advice.食事}
+                                </p>
+                                <p>
+                                    <span className="font-bold text-[16px] border-b-[#48A5BC] border-b-2">睡眠</span><br />
+                                    {analysis.advice.睡眠}
+                                </p>
+                                <p>
+                                    <span className="font-bold text-[16px] border-b-[#48A5BC] border-b-2">運動</span><br />
+                                    {analysis.advice.運動}
+                                </p>
+                            </div>
+                        ) : (
+                            <p>分析中...</p>
+                        )}
                     </div>
                 </div>
             </section>
